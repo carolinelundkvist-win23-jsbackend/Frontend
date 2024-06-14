@@ -62,7 +62,7 @@ else
 
 			try
 			{
-				var response = await Http.PostAsync("https://fileprovider-win23jsbackend-carolinelundkvist.azurewebsites.net/api/Upload", content);
+				var response = await Http.PostAsync(Enviroment.GetEnviromentVariable("FILEPROVIDER_UPLOAD_URI"), content);
 				if (response.IsSuccessStatusCode)
 				{
 					await LoadUserDataAsync();
