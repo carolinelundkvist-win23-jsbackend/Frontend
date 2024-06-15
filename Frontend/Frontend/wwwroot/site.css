@@ -697,11 +697,14 @@ header .container .account-buttons .profile .profile-image form label {
   right: 0;
 }
 
-.account-details {
+.account-details .container {
   display: grid;
   grid-template-columns: 2fr 5fr;
   gap: 150px;
   margin-bottom: 70px;
+}
+.account-details .container aside {
+  display: flex;
 }
 .account-details .container .content {
   margin-top: 50px;
@@ -717,7 +720,7 @@ header .container .account-buttons .profile .profile-image form label {
   display: grid;
   gap: 1rem 2rem;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons buttons";
+  grid-template-areas: "firstname firstname" "phone phone" "bio bio" "buttons buttons";
 }
 .account-details .container .content .form-basic form .form-content #form-firstname {
   grid-area: firstname;
