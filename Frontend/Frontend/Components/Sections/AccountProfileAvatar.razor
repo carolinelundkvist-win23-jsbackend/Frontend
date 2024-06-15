@@ -1,6 +1,7 @@
-﻿@attribute [StreamRendering]
+﻿@using Microsoft.Extensions.Hosting
+@attribute [StreamRendering]
 
-@if(user == null)
+@if (user == null)
 {
 	<p>Loading...</p>
 }
@@ -29,53 +30,52 @@ else
 
 @code {
 
-	private ApplicationUser user = default!;
-	private MultipartFormDataContent uploadModel = new MultipartFormDataContent();
-	private IBrowserFile? selectedFile;
+    private ApplicationUser user = default!;
+    private MultipartFormDataContent uploadModel = new MultipartFormDataContent();
+    private IBrowserFile? selectedFile;
 
-	[CascadingParameter]
-	private HttpContext HttpContext { get; set; } = default!;
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await LoadUserDataAsync();
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserDataAsync();
+    }
 
-	private void HandleFileSelected(InputFileChangeEventArgs e)
-	{
-		selectedFile = e.File;
-	}
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+    }
 
-	private async Task LoadUserDataAsync()
-	{
-		user = await UserManager.GetUserAsync(HttpContext.User) ?? null!;
-	}
+    private async Task LoadUserDataAsync()
+    {
+        user = await UserManager.GetUserAsync(HttpContext.User) ?? null!;
+    }
 
-	public async Task HandleProfileUpload()
-	{
-		if (selectedFile != null)
-		{
-			using var content = new MultipartFormDataContent();
-			var fileContent = new StreamContent(selectedFile.OpenReadStream(maxAllowedSize: 1024 * 1024 * 15));
-			fileContent.Headers.ContentType = new MediaTypeHeaderValue(selectedFile.ContentType);
-			content.Add(fileContent, "file", selectedFile.Name);
+    public async Task HandleProfileUpload()
+    {
+        if (selectedFile != null)
+        {
+            using var content = new MultipartFormDataContent();
+            var fileContent = new StreamContent(selectedFile.OpenReadStream(maxAllowedSize: 1024 * 1024 * 15));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(selectedFile.ContentType);
+            content.Add(fileContent, "file", selectedFile.Name);
 
-			try
-			{
-				var response = await Http.PostAsync(Enviroment.GetEnviromentVariable("FILEPROVIDER_UPLOAD_URI"), content);
-				if (response.IsSuccessStatusCode)
+            try
+            {
+                var response = await Http.PostAsync(Environment.GetEnvironmentVariable("FILEPROVIDER_UPLOAD_URI"), content);
+                if (response.IsSuccessStatusCode)
 				{
 					await LoadUserDataAsync();
 					StateHasChanged();
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				
+
 			}
 
 		}
 	}
 
 }
-

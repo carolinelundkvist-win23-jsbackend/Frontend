@@ -9,14 +9,10 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
-    <Content Remove="Components\Sections\AccountProfileAvatar.razor" />
-    <Content Remove="Components\Sections\Footer.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
-    <None Include="Components\Sections\AccountProfileAvatar.razor" />
-    <None Include="Components\Sections\Footer.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,19 +22,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Components\Sections\Footer.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Components\Sections\AccountProfileAvatar.razor" />
-    <_ContentIncludedByDefault Remove="Components\Sections\Footer.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Components\Sections\AccountProfileAvatar.razor" />
   </ItemGroup>
 
 </Project>
